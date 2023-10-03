@@ -29,4 +29,9 @@ public class testController {
         System.out.println(objects.toString());
 
     }
+
+    @GetMapping("/filter")
+    public void filter(){
+        
+    }
 }

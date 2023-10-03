@@ -8,4 +8,7 @@ import java.util.Map;
 
 public interface AuthorService {
 	List<Author> findByIdIn(List<Integer> authorsId);
+
+
+
 }

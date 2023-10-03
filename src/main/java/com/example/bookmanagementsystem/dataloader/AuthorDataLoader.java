@@ -1,7 +1,9 @@
 package com.example.bookmanagementsystem.dataloader;
 
 import com.example.bookmanagementsystem.modules.Author;
+import com.example.bookmanagementsystem.modules.Book;
 import com.example.bookmanagementsystem.services.AuthorService;
+import com.example.bookmanagementsystem.services.BookService;
 import org.dataloader.BatchLoader;
 import com.netflix.graphql.dgs.DgsDataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ public class AuthorDataLoader implements BatchLoader<Integer, Author> {
     AuthorService authorService;
 
     @Override
-    public CompletionStage<List<Author>> load(List<Integer> keys) {
-        return CompletableFuture.supplyAsync(() -> authorService.findByIdIn(keys));
+    public CompletionStage<List<Author>> load(List<Integer> authorsId) {
+        return CompletableFuture.supplyAsync(() -> authorService.findByIdIn(authorsId));
     }
 }

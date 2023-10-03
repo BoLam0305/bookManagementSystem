@@ -17,7 +17,7 @@ type Mutation {
 
 type Author {
   id: ID
-  name: String!
+  name: String
   books: [Book!]
 }
 

@@ -29,8 +29,4 @@ public class testController {
         System.out.println(objects.toString());
 
     }
-
-    public void testMerge(){
-        
-    }
 }

@@ -33,4 +33,8 @@ public class testController {
     public void testMerge(){
         
     }
+
+    public void hello(){
+        
+    }
 }

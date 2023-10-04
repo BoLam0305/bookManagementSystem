@@ -20,13 +20,13 @@ public class AuthorFetchers {
 	@Autowired
 	private AuthorRepository authorRepository;
 
-//	@DgsData(parentType = "Book", field = "author")
-//	public CompletableFuture<Author> author(DgsDataFetchingEnvironment dfe) throws ExecutionException, InterruptedException {
-//		System.out.println("[authors data loader call]");
-//		DataLoader<Integer, Author> dataLoader = dfe.getDataLoader("authors");
-//		Book book = dfe.getSource();
-//		return dataLoader.load(book.getAuthor().getId());
-//	}
+	@DgsData(parentType = "Book", field = "author")
+	public CompletableFuture<Author> author(DgsDataFetchingEnvironment dfe) throws ExecutionException, InterruptedException {
+		System.out.println("[authors data loader call]");
+		DataLoader<Integer, Author> dataLoader = dfe.getDataLoader("authors");
+		Book book = dfe.getSource();
+		return dataLoader.load(book.getAuthor().getId());
+	}
 
 
 	@DgsQuery

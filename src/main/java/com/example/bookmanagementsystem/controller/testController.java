@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @RestController
 public class testController {
-    @Autowired BookService bookService;
 
     @GetMapping("/test")
     public void test(){

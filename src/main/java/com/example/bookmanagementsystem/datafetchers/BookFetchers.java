@@ -8,11 +8,13 @@ import com.netflix.graphql.dgs.DgsDataFetchingEnvironment;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import org.dataloader.DataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +26,20 @@ public class BookFetchers {
 	@Autowired
 	private BookService bookService;
 
-//	@DgsData(parentType = "Author", field = "book")
-//	public CompletableFuture<Author> author(DgsDataFetchingEnvironment dfe) throws ExecutionException, InterruptedException {
-//		System.out.println("[books data loader call]");
-//		DataLoader<Integer, Author> dataLoader = dfe.getDataLoader("books");
-//		Author author = dfe.getSource();
-//		return dataLoader.load(author.getBooks());
-//	}
-
-	@DgsQuery
-	public Optional<Book> book(){
-		System.out.println("[book call]");
-		int id = 1;
-		return bookService.book(id);
+	@DgsData(parentType = "Author", field = "books")
+	public CompletableFuture<Book> book(DgsDataFetchingEnvironment dfe) throws ExecutionException, InterruptedException {
+		System.out.println("[books data loader call]");
+		DataLoader<Integer, Book> dataLoader = dfe.getDataLoader("books");
+		Author author = dfe.getSource();
+//		Set<Integer> booksId = author.getBooks().stream().map(Book::getId).collect(Collectors.toSet());
+//		System.out.println(booksId);
+		return dataLoader.load(author.getId());
 	}
 
 	@DgsQuery
 	public List<Book> books() {
 		System.out.println("[books call]");
+		System.out.println("result:"+bookService.books().toString());
 		return bookService.books();
 	}
 

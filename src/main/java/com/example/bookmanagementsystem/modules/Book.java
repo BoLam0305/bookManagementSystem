@@ -26,10 +26,12 @@ public class Book {
 	@Column(name = "publication_year")
 	private int publication_year;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "author_id")
 	private Author author;
 
+	@Column(name = "author_id",insertable=false, updatable=false)
+	private Integer authorId;
 
 	@Override
 	public String toString() {
@@ -40,4 +42,6 @@ public class Book {
 			", author=" + author +
 			'}';
 	}
+
+
 }

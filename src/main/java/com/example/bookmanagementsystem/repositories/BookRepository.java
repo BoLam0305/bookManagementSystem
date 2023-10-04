@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
-
-	Set<Book>findAllByAuthor_IdIn(Set<Integer>authorsId);
+    List<Book>findByIdIn(Set<Integer> booksId);
+    List<Book>findByAuthorIdIn(Set<Integer>authorIds);
 
 }

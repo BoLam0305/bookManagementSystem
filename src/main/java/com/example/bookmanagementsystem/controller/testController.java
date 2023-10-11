@@ -20,6 +20,7 @@ public class testController {
         List<Item> items = new ArrayList<>();
         items.add(new Item("1", 1, "order"));
         items.add(new Item("2", 2, "pack"));
+        items.add(new Item("2", 2, "pack"));
         items.add(new Item("3", 3, "pack"));
         List<Item> filterItems = items.stream().filter( item -> item.getQty() == 3 || item.getQty()==1).collect(Collectors.toList());
         System.out.println(filterItems.toString());

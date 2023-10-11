@@ -31,8 +31,6 @@ public class BookFetchers {
 		System.out.println("[books data loader call]");
 		DataLoader<Integer, Book> dataLoader = dfe.getDataLoader("books");
 		Author author = dfe.getSource();
-//		Set<Integer> booksId = author.getBooks().stream().map(Book::getId).collect(Collectors.toSet());
-//		System.out.println(booksId);
 		return dataLoader.load(author.getId());
 	}
 

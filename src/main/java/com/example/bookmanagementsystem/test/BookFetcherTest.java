@@ -2,7 +2,11 @@ package com.example.bookmanagementsystem.test;
 
 
 import com.netflix.graphql.dgs.DgsQueryExecutor;
+
+import java.util.List;
 import java.util.Map;
+
+import com.netflix.graphql.dgs.autoconfig.DgsAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
@@ -15,45 +19,20 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = {DgsAutoConfiguration.class, BookFetcherTest.class})
 public class BookFetcherTest {
 
 	@Autowired
-	private TestRestTemplate testRestTemplate;
-
-	@MockBean
 	DgsQueryExecutor dgsQueryExecutor;
-
 
 	@Test
 	public void books() {
-
-		// Prepare the GraphQL mutation
-		String query = """
-                query{
-                    books{
-                        title
-                    }
-                }
-            """;
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<String> requestEntity = new HttpEntity<>(query, headers);
-
-		// Send the GraphQL request and receive the response
-		ResponseEntity<Map> responseEntity = testRestTemplate.postForEntity("/graphql", requestEntity, Map.class);
-		System.out.println(responseEntity.toString());
-
-
-
-		//		ExecutionResult result = dgsQueryExecutor.execute(" { books {id title publication_year }}");
-//		System.out.println(result.toString());
-////		List<String> titles = dgsQueryExecutor.executeAndExtractJsonPath(
-////			" { books {id title publication_year }}",
-////			"data.books[*].id");
-////		System.out.println(titles.size());
+		List<String> titles = dgsQueryExecutor.executeAndExtractJsonPath(
+			" { books { id title publication_year}}",
+			"data.books[*].title");
+		System.out.println(titles);
+		assertThat(titles).contains("Whispers in the Wind");
 	}
 }
